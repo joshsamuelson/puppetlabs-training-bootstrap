@@ -1,0 +1,108 @@
+{
+  "push": {
+    "name": "joshsamuelson/LearningVM"
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{user `ks_file`}}.cfg<enter>"
+      ],
+      "disk_size": "{{ user `vm_disk_size` }}",
+      "disk_type_id": "0",  
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "sha1",
+      "iso_url": "{{ user `iso_url` }}",
+      "output_directory": "output/{{ user `vm_type` }}-base-vmware",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+      "ssh_username": "root",
+      "ssh_password": "puppet",
+      "skip_compaction": "true",
+      "ssh_wait_timeout": "10000s",      
+      "tools_upload_flavor": "linux",
+      "type": "vmware-iso",
+      "vm_name": "{{user `vm_name`}}-base",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "{{user `vm_memsize`}}",
+        "numvcpus": "{{user `vm_cores`}}"
+      }
+    }
+  ],
+  "post-processors": [
+    [{
+      "type": "vagrant",
+      "keep_input_artifact": false
+    },
+    {
+      "type": "atlas",
+      "only": ["vmware-iso"],
+      "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+      "artifact_type": "vagrant.box",
+      "metadata": {
+        "provider": "vmware_desktop",
+        "version": "0.0.1"
+      }
+    }
+    ]
+  ],
+  "provisioners": [
+    {
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/sshd.sh",
+        "scripts/pre_build.sh",
+        "scripts/cleanup.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "type": "shell", 
+      "inline": ["sudo mkdir -p /vagrant/file_cache;sudo chown -R vagrant:vagrant /vagrant"]
+    },
+    {
+      "environment_vars": [
+        "PE_STATUS={{user `pe_status`}}",
+        "PE_VERSION={{user `pe_version`}}",
+        "RUBY_LIB={{user `rubylib`}}",
+        "TRAINING_REPO={{user `training_repo`}}",
+        "TRAINING_BRANCH={{user `training_branch`}}",
+        "VM_TYPE={{user `vm_type`}}"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/vagrant.sh",
+        "scripts/{{user `vm_type`}}_build.sh",
+        "scripts/cleanup.sh",
+        "scripts/{{user `vm_type`}}_cleanup.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "atlas_username": "{{env `ATLAS_USERNAME`}}",
+    "atlas_name": "{{ env `ATLAS_NAME`}}",
+    "vm_name": "learn_puppet_centos-6.6",
+    "hostname": "learning",
+    "ks_file": "ks-learning",
+    "training_branch": "master",
+    "training_repo": "https://github.com/puppetlabs/puppetlabs-training-bootstrap.git",
+    "vm_memsize": "1024",
+    "vm_disk_size": "20480",
+    "vm_cores": "1",
+    "arch": "i386",
+    "guest_os_type": "centos",
+    "iso_checksum": "d16aa4a8e6f71fb01fcc26d8ae0e3443ed514c8e",
+    "iso_url": "http://mirrors.kernel.org/centos/6.6/isos/i386/CentOS-6.6-i386-bin-DVD1.iso",
+    "os_name": "CentOS-6.6",
+    "pe_status": "release",
+    "pe_version": "3.7.2",
+    "rubylib": "/usr/src/puppet/lib:/usr/src/facter/lib:/usr/src/hiera/lib",
+    "system_user": "vagrant",
+    "system_user_password": "vagrant",
+    "vm_type": "learning",
+    "ptb_version": "2.16"
+  }
+}
