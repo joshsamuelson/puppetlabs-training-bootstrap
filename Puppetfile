@@ -22,7 +22,8 @@ mod 'learning',
   :git => 'https://github.com/puppetlabs/pltraining-learning'
 
 mod 'lms',
-  :git => 'https://github.com/puppetlabs/pltraining-lms'
+  :git => 'https://github.com/joshsamuelson/pltraining-lms',
+  :ref => '2015.2'
 
 mod 'localrepo',
   :git => 'https://github.com/puppetlabs/pltraining-localrepo'
