@@ -23,7 +23,7 @@ mod 'learning',
 
 mod 'lms',
   :git => 'https://github.com/joshsamuelson/pltraining-lms',
-  :ref => '2015.2'
+  :ref => 'beaker'
 
 mod 'localrepo',
   :git => 'https://github.com/puppetlabs/pltraining-localrepo'
