@@ -25,12 +25,11 @@ CACHEDIR = File.join(SITESDIR, "cache")
 BUILDDIR = File.join(SITESDIR, "build")
 OVFDIR = File.join(BUILDDIR, "ovf")
 
-MASTER_HOSTNAME = `hostname`.strip
 CONFDIR      =  '/etc/puppetlabs/puppet'
 AUTH_INFO = {
   "ca_certificate_path" => "#{CONFDIR}/ssl/ca/ca_crt.pem",
-  "certificate_path"    => "#{CONFDIR}/ssl/certs/#{MASTER_HOSTNAME}.pem",
-  "private_key_path"    => "#{CONFDIR}/ssl/private_keys/#{MASTER_HOSTNAME}.pem"
+  "certificate_path"    => "#{CONFDIR}/ssl/certs/master.puppetlabs.vm.pem",
+  "private_key_path"    => "#{CONFDIR}/ssl/private_keys/master.puppetlabs.vm.pem"
 }
 
 $settings = Hash.new
