@@ -313,8 +313,9 @@ task :ship do
 end
 
 def test(course)
-  %x{puppet module install pltraining-puppetfactory --modulepath=/etc/puppetlabs/code/modules}
+  %x{puppet module install pltraining-puppetfactory}
   puppetclassify = PuppetClassify.new('https://localhost:4433/classifier-api', AUTH_INFO)
+  puppetclassify.classes.get_environment_classes("production")
   puppetclassify.groups.create_group({ "name"        => "Classroom",
                                        "environment" => "production",
                                        "rule"        => ["=",["trusted","certname"],"master.puppetlabs.vm"],
