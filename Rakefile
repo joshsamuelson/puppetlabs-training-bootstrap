@@ -317,8 +317,9 @@ def test(course)
   puppetclassify = PuppetClassify.new('https://localhost:4433/classifier-api', AUTH_INFO)
   puppetclassify.groups.create_group({ "name"        => "Classroom",
                                        "environment" => "production",
+                                       "rule"        => ["=",["trusted","certname"],"master.puppetlabs.vm"],
                                        "parent"      => "00000000-0000-4000-8000-000000000000",
-                                       "classes"     => "puppetfactory::profile::#{course}" }) 
+                                       "classes"     => {"puppetfactory::profile::#{course}" =>{}}}) 
   %x{puppet agent -t}
 end
 
