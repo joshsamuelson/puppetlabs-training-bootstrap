@@ -5,6 +5,7 @@ require 'net/https'
 require 'rubygems'
 require 'yaml'
 require 'open-uri'
+require 'puppetclassify'
 
 STDOUT.sync = true
 BASEDIR = File.dirname(__FILE__)
@@ -23,6 +24,14 @@ SITESDIR = "/srv/builder/Sites" || ENV["SITESDIR"]
 CACHEDIR = File.join(SITESDIR, "cache")
 BUILDDIR = File.join(SITESDIR, "build")
 OVFDIR = File.join(BUILDDIR, "ovf")
+
+MASTER_HOSTNAME = `hostname`.strip
+CONFDIR      =  '/etc/puppetlabs/puppet'
+AUTH_INFO = {
+  "ca_certificate_path" => "#{CONFDIR}/ssl/ca/ca_crt.pem",
+  "certificate_path"    => "#{CONFDIR}/ssl/certs/#{MASTER_HOSTNAME}.pem",
+  "private_key_path"    => "#{CONFDIR}/ssl/private_keys/#{MASTER_HOSTNAME}.pem"
+}
 
 $settings = Hash.new
 
@@ -283,6 +292,12 @@ task :lms do
   Rake::Task["post"].execute
 end
 
+desc "Test Puppetfactory Module"
+task :test do
+  test(ARGV[0])
+end
+
+
 ## The job that calls this needs to be tied to a builder with ovftool and the int-resources NFS export mounted.
 ## Currently just pe-vm-builder-1
 desc "Package and ship a VM"
@@ -296,6 +311,18 @@ task :ship do
   cputs "Copying #{ovaname} to int-resources"
   ship_vm_to_dir(ovapath, "/mnt/nfs/EducationVMS/#{VMTYPE}")
   cputs "#{ovaname} is now available at http://int-resources.ops.puppetlabs.net/EducationVMS/#{VMTYPE}/#{ovaname}"
+end
+
+def test(course)
+  %x{puppet module install pltraining-puppetfactory --modulepath=/etc/puppetlabs/code/modules}
+  puppetclassify = PuppetClassify.new('https://localhost:4433/classifier-api', AUTH_INFO)
+  puppetclassify.groups.create_group({ 
+    "name"        => "Classroom",
+    "environment" => "production",
+    "parent"      => "00000000-0000-4000-8000-000000000000",
+    "classes"     => { "puppetfactory::profile::#{course}" }
+  }) 
+  %x{puppet agent -t}
 end
 
 def download(url,path)

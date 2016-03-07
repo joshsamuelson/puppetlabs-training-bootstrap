@@ -3,7 +3,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # Build and install wkhtmltopdf
 # prereqs
 yum install -y ruby-devel gcc rpm-build
-gem install fpm
+gem install fpm puppetfactory
 
 # build
 curl -O http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
