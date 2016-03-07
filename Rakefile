@@ -293,8 +293,8 @@ task :lms do
 end
 
 desc "Test Puppetfactory Module"
-task :test do
-  test(ARGV[0])
+task :test, [:course] do |t, args|
+  test(args[:course])
 end
 
 
