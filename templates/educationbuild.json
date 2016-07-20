@@ -11,7 +11,7 @@
       "ssh_pty": "true",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--cpus", "2"],
-        ["modifyvm", "{{.Name}}", "--memory", "2048"]
+        ["modifyvm", "{{.Name}}", "--memory", "3072"]
       ],
       "vboxmanage_post": [
         ["modifyvm", "{{.Name}}", "--cpus", "{{user `vm_cores`}}"],
