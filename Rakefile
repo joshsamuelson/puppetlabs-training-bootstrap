@@ -261,7 +261,7 @@ end
 
 def mount_fileshare
   begin
-    `mkdir -p /tmp/fileshare && mount_smbfs #{FILESHARE_SERVER} /tmp/fileshare`
+    `mkdir -p /tmp/fileshare && mount -t smbfs #{FILESHARE_SERVER} /tmp/fileshare`
   rescue
     puts "There was an error mounting the #{FILESHARE_SERVER} to /tmp/fileshare"
     puts "Pleause check that this server isn't already mounted"
