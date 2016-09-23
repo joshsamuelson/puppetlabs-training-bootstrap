@@ -51,7 +51,7 @@
     </disk>
     <interface type='bridge'>
       <source bridge='virbr0'/>
-      <target dev='vnet<%= data[:id]%>'/>
+      <target dev='vnet<%= student[:name] %>'/>
     </interface>
     <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'/>
   </devices>
