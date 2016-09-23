@@ -1,25 +1,15 @@
 ---
 :master:
   :name: 'master'
-:josh:
-  :name: 'windows'
-:ben:
-  :name: 'windows'
-:carthik:
-  :name: 'windows'
-:kevin:
-  :name: 'windows'
-:student1:
-  :name: 'windows'
-:student2:
-  :name: 'windows'
-:student3:
-  :name: 'windows'
-:student4:
-  :name: 'windows'
-:student5:
-  :name: 'windows'
-:student6:
-  :name: 'windows'
-:student7:
-  :name: 'windows'
+:windows:
+  - :name:'josh'
+  - :name:'ben'
+  - :name:'carthik'
+  - :name:'kevin'
+  - :name:'student1'
+  - :name:'student2'
+  - :name:'student3'
+  - :name:'student4'
+  - :name:'student5'
+  - :name:'student6'
+  - :name:'student7'
