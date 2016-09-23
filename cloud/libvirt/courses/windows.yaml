@@ -1,5 +1,25 @@
 ---
 :master:
   :name: 'master'
-:student:
+:josh:
+  :name: 'windows'
+:ben:
+  :name: 'windows'
+:carthik:
+  :name: 'windows'
+:kevin:
+  :name: 'windows'
+:student1:
+  :name: 'windows'
+:student2:
+  :name: 'windows'
+:student3:
+  :name: 'windows'
+:student4:
+  :name: 'windows'
+:student5:
+  :name: 'windows'
+:student6:
+  :name: 'windows'
+:student7:
   :name: 'windows'
