@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name><%= profile[:name] %><%= @options[:domain] %></name>
+  <name><%= student[:name] %><%= @options[:domain] %></name>
   <memory unit='KiB'>1048576</memory>
   <currentMemory unit='KiB'>1048576</currentMemory>
   <vcpu placement='static'>1</vcpu>
@@ -39,10 +39,10 @@
     <emulator>/usr/libexec/qemu-kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/var/lib/libvirt/images/<%= data[:id] %>.qcow2'/>
+      <source file='/var/lib/libvirt/images/<%= student[:name] %>.qcow2'/>
       <backingStore type='file' index='1'>
         <format type='raw'/>
-        <source file='/var/lib/libvirt/images/<%= profile[:name] %>.img'/>
+        <source file='/var/lib/libvirt/images/<%= type %>.img'/>
         <backingStore/>
       </backingStore>
       <target dev='hda' bus='ide'/>
