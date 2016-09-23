@@ -1,5 +1,5 @@
 <volume type='file'>
-  <name><%= data[:id] %>.qcow2</name>
+  <name><%= student[:name] %>.qcow2</name>
   <target>
     <path>/var/lib/libvirt/images/<%= student[:name] %>.qcow2</path>
     <format type='qcow2'/>
