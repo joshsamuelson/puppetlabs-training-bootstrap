@@ -53,6 +53,6 @@
       <source bridge='virbr0'/>
       <target dev='vnet<%= student[:name] %>'/>
     </interface>
-    <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'/>
+    <graphics type='vnc' port='59<%= '%02d' % index %>' listen='0.0.0.0'/>
   </devices>
 </domain>
