@@ -1,0 +1,22 @@
+<domain type='kvm'>
+  <name><%= profile[:name] %><%= @options[:domain] %></name>
+  <uuid></uuid>
+  <memory unit='GB'>14</memory>
+  <vcpu>1</vcpu>
+  <os>
+    <type arch="x86_64">hvm</type>
+  </os>
+  <clock sync="localtime"/>
+  <devices>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' />
+      <source file='/var/lib/libvirt/images/<%= data[:id] %>.qcow2'/>
+      <target dev='hda'/>
+    </disk>
+    <interface type='bridge'>
+      <source bridge='virbr0'/>
+      <target dev='vnet<%= data[:id]%>'/>
+    </interface>
+    <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'/>
+  </devices>
+</domain>
