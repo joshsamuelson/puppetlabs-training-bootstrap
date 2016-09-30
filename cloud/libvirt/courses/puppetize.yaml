@@ -1,0 +1,18 @@
+---
+:master:
+  :name: 'master'
+:github:
+  :name: 'github'
+:windows:
+  :students:
+    - :name: 'josh'
+    - :name: 'ben'
+    - :name: 'carthik'
+    - :name: 'kevin'
+    - :name: 'student1'
+    - :name: 'student2'
+    - :name: 'student3'
+    - :name: 'student4'
+    - :name: 'student5'
+    - :name: 'student6'
+    - :name: 'student7'
