@@ -1,5 +1,5 @@
 <domain type='kvm'>
-  <name><%= profile[:name] %><%= @options[:domain] %></name>
+  <name><%= type.to_s %><%= @options[:domain] %></name>
   <uuid></uuid>
   <memory unit='GB'>14</memory>
   <vcpu>1</vcpu>
@@ -10,12 +10,12 @@
   <devices>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' />
-      <source file='/var/lib/libvirt/images/<%= data[:id] %>.qcow2'/>
+      <source file='/var/lib/libvirt/images/<%= type.to_s %>.qcow2'/>
       <target dev='hda'/>
     </disk>
     <interface type='bridge'>
       <source bridge='virbr0'/>
-      <target dev='vnet<%= data[:id]%>'/>
+      <target dev='vnet<%= type.to_s %>'/>
     </interface>
     <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'/>
   </devices>
