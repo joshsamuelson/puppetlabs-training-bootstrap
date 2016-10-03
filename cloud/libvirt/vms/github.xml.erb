@@ -1,22 +1,27 @@
 <domain type='kvm'>
-  <name><%= type.to_s %><%= @options[:domain] %></name>
+  <name><%= type %><%= @options[:domain] %></name>
   <uuid></uuid>
-  <memory unit='GB'>14</memory>
+  <memory unit='GB'>6</memory>
   <vcpu>1</vcpu>
   <os>
     <type arch="x86_64">hvm</type>
   </os>
   <clock sync="localtime"/>
   <devices>
+    <input type='tablet' bus='usb'/>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' />
-      <source file='/var/lib/libvirt/images/<%= type.to_s %>.qcow2'/>
+      <source file='/var/lib/libvirt/images/<%= type %>.qcow2'/>
+      <backingStore type='file'> 
+        <format type='raw'/> 
+        <source file='/var/lib/libvirt/images/<%= type %>.img'/>
+      </backingStore>
       <target dev='hda'/>
     </disk>
     <interface type='bridge'>
       <source bridge='virbr0'/>
-      <target dev='vnet<%= type.to_s %>'/>
+      <target dev='vnet<%= type %>'/>
     </interface>
-    <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'/>
+    <graphics type='vnc' port='59<%= '%02d' % index %>' listen='0.0.0.0'/>
   </devices>
 </domain>
