@@ -22,6 +22,6 @@
       <source bridge='virbr0'/>
       <target dev='vnet<%= type %>'/>
     </interface>
-    <graphics type='vnc' port='59<%= '%02d' % index %>' listen='0.0.0.0'/>
+    <graphics type='vnc' port='6000' listen='0.0.0.0'/>
   </devices>
 </domain>
