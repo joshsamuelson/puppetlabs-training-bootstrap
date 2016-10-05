@@ -9,10 +9,3 @@
     <path>/var/lib/libvirt/images/<%= type %>.img</path>
   </backingStore>
 </volume>
-<volume type='file'>
-  <name><%= student[:name] %>-storage.qcow2</name>
-  <target>
-    <path>/var/lib/libvirt/images/<%= student[:name] %>-storage.qcow2</path>
-    <format type='qcow2'/>
-  </target>
-</volume>
