@@ -1,6 +1,7 @@
 <volume type='file'>
   <name><%= student[:name] %>-storage.qcow2</name>
   <capacity unit='GB'>16</capacity>
+  <allocation unit='GB'>16</allocation>
   <target>
     <path>/var/lib/libvirt/images/<%= student[:name] %>-storage.qcow2</path>
     <format type='qcow2'/>
