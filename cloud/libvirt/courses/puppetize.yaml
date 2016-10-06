@@ -1,11 +1,6 @@
 ---
 :master:
   :name: 'master'
-:github:
-  :name: 'github'
-  :volumes:
-    - 'github'
-    - 'github-storage'
 :windows:
   :students:
     - :name: 'student1'
