@@ -19,7 +19,7 @@ puppet agent -t
 
 puppet module install pltraining-selfpaced --modulepath=/etc/puppetlabs/code/modules
 cat << SITE >> /etc/puppetlabs/code/environments/production/manifests/site.pp
-node master.puppetlabs.vm {
+node 'master.puppetlabs.vm' {
   include selfpaced
 }
 SITE
