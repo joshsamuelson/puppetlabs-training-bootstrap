@@ -1,4 +1,5 @@
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+set -e
 
 # Build and install wkhtmltopdf
 # prereqs
