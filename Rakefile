@@ -236,7 +236,7 @@ def build_vm(build_type, vm_name)
 end
 
 def symlink_latest(vm_name)
-  `cd output; ln -sf puppet-#{pe_version}-#{vm_name}-#{PTB_VERSION[:major]}.#{PTB_VERSION[:minor]} #{vm_name}_latest.ova`
+  `cd output; ln -sf puppet-#{pe_version}-#{vm_name}-#{PTB_VERSION[:major]}.#{PTB_VERSION[:minor]}.ova #{vm_name}_latest.ova`
 end
 
 def validate_build_details
