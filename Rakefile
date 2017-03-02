@@ -6,6 +6,7 @@ require 'r10k/puppetfile'
 PRE_RELEASE = ENV['PRE_RELEASE'] == 'true'
 PTB_VERSION = YAML.load_file('./build_files/version.yaml')
 STABLE = ENV['STABLE'] || 'false'
+DEBUG = ENV['DEBUG'] || false
 
 FILESHARE_SERVER = '//guest@int-resources.ops.puppetlabs.net/Resources'
 STDOUT.sync = true
@@ -147,7 +148,7 @@ def subprocess_trap(io)
 end
 
 def call_packer(template, args={}, var_file=nil)
-  arg_string = ""
+  arg_string = DEBUG ? "-debug " : ""
   args.each do |k, v|
     arg_string << " -var '#{k}=#{v}' "
   end
