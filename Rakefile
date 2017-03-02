@@ -235,6 +235,10 @@ def build_vm(build_type, vm_name)
   call_packer(template_file(build_type), packer_args, var_file(vm_name))
 end
 
+def symlink_latest(vm_name)
+  `cd output; ln -sf #{ova_name} #{vm_name}_latest.ova`
+end
+
 def validate_build_details
   puts "\nPE version: #{pe_version}\n"
   name = STABLE == 'true' ? "Puppetfile.stable" : "Puppetfile"
@@ -438,6 +442,7 @@ desc "Master VM build"
 task :master_build do
   build_vm('build', 'master')
   box_to_ova('master')
+  symlink_latest('master')
   create_md5("master")
 end
 
