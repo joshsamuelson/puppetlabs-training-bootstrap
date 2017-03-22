@@ -38,6 +38,9 @@ mod 'dirtree',
 mod 'userprefs', 
   :git => 'https://github.com/puppetlabs/pltraining-userprefs'
 
+mod 'puppetfactory', 
+  :git => 'https://github.com/puppetlabs/pltraining-puppetfactory'
+
 mod 'puppetlabs/concat', '1.2.4'
 #mod 'concat',
 #  :git => 'https://github.com/puppetlabs/puppetlabs-concat'
