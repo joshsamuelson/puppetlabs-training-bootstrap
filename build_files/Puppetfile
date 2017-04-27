@@ -84,6 +84,7 @@ mod 'binford2k/abalone'
 mod 'garethr/docker'
 mod 'razorsedge/network'
 mod 'puppetlabs/stdlib'
+mod 'pltraining/puppetfactory'
 
 # Dependencies for CIAB
 mod 'puppetlabs/firewall'
