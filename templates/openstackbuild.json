@@ -29,8 +29,7 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/pre_build.sh",
-        "scripts/{{user `vm_type`}}_pre_build.sh",
-        "scripts/{{user `vm_type`}}_build.sh",
+        "scripts/{{user `vm_type`}}_full.sh",
         "scripts/cleanup.sh",
         "scripts/{{user `vm_type`}}_cleanup.sh"
       ],
@@ -46,7 +45,7 @@
     "iso_url": "",
     "os_name": "",
     "pe_status": "release",
-    "pe_version": "2016.5.1",
+    "pe_version": "2017.2.1",
     "rubylib": "/usr/src/puppet/lib:/usr/src/facter/lib:/usr/src/hiera/lib",
     "system_user": "vagrant",
     "system_user_password": "vagrant",

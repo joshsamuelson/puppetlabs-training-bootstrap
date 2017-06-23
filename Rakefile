@@ -178,6 +178,8 @@ def template_file(build_type)
     File.join(template_dir, 'student.json')
   when 'ami'
     File.join(template_dir, 'awsbuild.json')
+  when 'slice'
+    File.join(template_dir, 'openstackbuild.json')
   else
     fail "ERROR: Invalid build type: #{build_type}"
   end
@@ -447,6 +449,11 @@ task :master_ami do
   build_vm('ami', 'master')
 end
 
+desc "Master SLICE build"
+task :master_slice do
+  build_vm('slice', 'master')
+end
+
 desc "Learning VM base build"
 task :learning_base => [:cache_pe_installer] do
   build_vm('base', 'learning')
@@ -456,6 +463,11 @@ desc "Learning VM build"
 task :learning_build do
   build_vm('build', 'learning')
   box_to_ova('learning')
+end
+
+desc "Learning SLICE build"
+task :learning_slice do
+  build_vm('slice', 'learning')
 end
 
 desc "Demo VM base build"
