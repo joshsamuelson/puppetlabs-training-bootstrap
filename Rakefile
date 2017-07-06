@@ -119,7 +119,7 @@ def get_base_vm(image_type)
 		image_box="centos-7.2-x86_64-virtualbox-nocm-1.0.1.box"
 	end
   if PUBLIC_OVA == "true" then
-    vagrant_base_url="https://atlas.hashicorp.com/puppetlabs/boxes/centos-7.2-64-nocm/versions/1.0.1/providers/virtualbox_desktop.box"
+    vagrant_base_url="https://s3.amazonaws.com/puppetlabs-vagrantcloud/centos-7.2-x86_64-virtualbox-nocm-1.0.1.box"
   else
     vagrant_base_url="http://int-resources.ops.puppetlabs.net/Vagrant%20images"
   end
