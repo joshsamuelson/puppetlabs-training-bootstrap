@@ -6,6 +6,7 @@ require 'r10k/puppetfile'
 PRE_RELEASE = ENV['PRE_RELEASE'] == 'true'
 PTB_VERSION = YAML.load_file('./build_files/version.yaml')
 STABLE = ENV['STABLE'] || 'false'
+PUBLIC_OVA = ENV['PUBLIC_OVA'] || 'false'
 
 FILESHARE_SERVER = '//guest@int-resources.ops.puppetlabs.net/Resources'
 STDOUT.sync = true
@@ -117,17 +118,19 @@ def get_base_vm(image_type)
 	else
 		image_box="centos-7.2-x86_64-virtualbox-nocm-1.0.1.box"
 	end
-	vagrant_base_url="http://int-resources.ops.puppetlabs.net/Vagrant%20images"
-  #Public download URL: https://atlas.hashicorp.com/puppetlabs/boxes/centos-7.2-64-nocm/versions/1.0.1/providers/virtualbox_desktop.box
-  #Public download URL: https://atlas.hashicorp.com/puppetlabs/boxes/centos-6.6-32-nocm/versions/1.0.3/providers/virtualbox_desktop.box
+  if PUBLIC_OVA == "true" then
+    vagrant_base_url="https://atlas.hashicorp.com/puppetlabs/boxes/centos-7.2-64-nocm/versions/1.0.1/providers/virtualbox_desktop.box"
+  else
+    vagrant_base_url="http://int-resources.ops.puppetlabs.net/Vagrant%20images"
+  end
 
-  `rm -rf output/#{image_type}-base-virtualbox`
-  `mkdir output/#{image_type}-base-virtualbox`
+  `rm -rf ./output/#{image_type}-base-virtualbox`
+  `mkdir ./output/#{image_type}-base-virtualbox`
 
   puts "Downloading #{image_type} base image"
-  `curl #{vagrant_base_url}/#{image_box} -o output/#{image_type}-base-virtualbox/#{image_box}`
-  `cd output/#{image_type}-base-virtualbox/; tar xzvf #{image_box}`
-  `mv output/#{image_type}-base-virtualbox/*.ovf output/#{image_type}-base-virtualbox/#{image_type}-base.ovf`
+  `curl #{vagrant_base_url}/#{image_box} -o ./output/#{image_type}-base-virtualbox/#{image_box}`
+  `cd ./output/#{image_type}-base-virtualbox/; tar xzvf #{image_box}`
+  `mv ./output/#{image_type}-base-virtualbox/*.ovf ./output/#{image_type}-base-virtualbox/#{image_type}-base.ovf`
 end
 
 ###################################
@@ -212,10 +215,10 @@ end
 
 def box_to_ova(vm_name)
   box_name = "puppet-#{pe_version}-#{vm_name}-#{PTB_VERSION[:major]}.#{PTB_VERSION[:minor]}"
-  puts %x{mkdir -p output/temp}
-  puts %x{cd output/temp; tar xvf ../#{box_name}.box}
-  open('output/temp/box.ovf','r') do |f|
-    open('output/temp/box.ovf.temp','w') do |f2|
+  puts %x{mkdir -p ./output/temp}
+  puts %x{cd ./output/temp; tar xvf ../#{box_name}.box}
+  open('./output/temp/box.ovf','r') do |f|
+    open('./output/temp/box.ovf.temp','w') do |f2|
       f.each_line do |line|
         # Remove mac address for vbox support
         line.sub!(/MACAddress=\"[0-9A-F]*\"\s/,'')
@@ -224,11 +227,11 @@ def box_to_ova(vm_name)
       end
     end
   end
-  FileUtils.mv 'output/temp/box.ovf.temp', 'output/temp/box.ovf'
-  puts %x{cd output/temp; tar cvf #{box_name}.ova *.ovf *.vmdk *.json Vagrantfile}
-  puts %x{mv output/temp/#{box_name}.ova output}
-  puts %x{rm -rf output/temp}
-  puts %x{rm -f output/#{box_name}.box}
+  FileUtils.mv './output/temp/box.ovf.temp', './output/temp/box.ovf'
+  puts %x{cd ./output/temp; tar cvf #{box_name}.ova *.ovf *.vmdk *.json Vagrantfile}
+  puts %x{mv ./output/temp/#{box_name}.ova ./output}
+  puts %x{rm -rf ./output/temp}
+  puts %x{rm -f ./output/#{box_name}.box}
 end
 
 def build_vm(build_type, vm_name)

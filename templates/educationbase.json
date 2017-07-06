@@ -3,11 +3,11 @@
     {
       "vm_name": "{{ user `vm_type`}}-base",
       "type": "virtualbox-ovf",
-      "source_path": "output/education-base-virtualbox/education-base.ovf",
+      "source_path": "./output/education-base-virtualbox/education-base.ovf",
       "ssh_username": "root",
       "ssh_password": "puppet",
       "shutdown_command": "{{user `shutdown_command`}}",
-      "output_directory": "output/{{ user `vm_type`}}-base-virtualbox/",
+      "output_directory": "./output/{{ user `vm_type`}}-base-virtualbox/",
       "ssh_pty": "true",
       "headless": "true",
       "vboxmanage": [
