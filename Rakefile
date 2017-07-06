@@ -127,7 +127,7 @@ def get_base_vm(image_type)
   `rm -rf ./output/#{image_type}-base-virtualbox`
   `mkdir ./output/#{image_type}-base-virtualbox`
 
-  puts "Downloading #{image_type} base image"
+  puts "Downloading #{image_type} base image from #{vagrant_base_url}"
   `curl #{vagrant_base_url}/#{image_box} -o ./output/#{image_type}-base-virtualbox/#{image_box}`
   `cd ./output/#{image_type}-base-virtualbox/; tar xzvf #{image_box}`
   `mv ./output/#{image_type}-base-virtualbox/*.ovf ./output/#{image_type}-base-virtualbox/#{image_type}-base.ovf`
